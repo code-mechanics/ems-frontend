@@ -1,0 +1,4 @@
+export enum ELoginType {
+    AUTHENTICATE_USER = 'AUTHENTICATE_USER',
+    GETOAUTH_USERS = 'GETOAUTH_USERS'
+}
