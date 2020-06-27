@@ -2,88 +2,98 @@
  * @file Login.
  * @author Mahesh
  */
-import React from 'react';
-import { compose } from "redux";
-import { connect } from "react-redux";
-import { Dispatch } from "react";
-import { IAppState } from "../../stores/store";
-import { AuthenticateUser, IAuthType } from "../../actions/AuthAction";
-import Button from '@material-ui/core/Button';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { AuthenticateUser } from "../../actions/AuthAction";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import EmailIcon from '@material-ui/icons/Email';
+import LockIcon from '@material-ui/icons/Lock';
 import NavBar from '../NavBar/NavBar';
+import { makeStyles } from '@material-ui/core/styles';
+import { IAppState } from '../../stores/store';
+import { useHistory } from "react-router-dom";
+import { Authenticate } from '../helpers/AuthHelper';
 import './Login.scss';
 
-interface IProps {
-    validUser: boolean;
-    onLoginClick(): void;
-}
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+    },
+}));
 
-class Login extends React.Component<IProps> {
-    
-    render() {
-        // const classes = useStyles();
-        return (
+const Login = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const auth = useSelector((state: IAppState) => state.auth);
+    const classes = useStyles();
+    const [txtEmail, setTxtEmail] = useState<string>('');
+    const [txtPassword, setTxtPassword] = useState<string>('');
+    console.log(history);
 
-            <div>
-                <NavBar />
-                <div id="login-page" className="row">
+    useEffect(() => {
+        console.log('useEffect runs');
+        if (auth.validUser === true)
+            history.push("/Exam");
+    },[auth.validUser]);
+
+
+    return (
+
+        <div>
+            <NavBar />
+            <div id="login-page" className="row">
+                <form className={classes.root} noValidate autoComplete="off">
                     <div className="col s12 z-depth-6 card-panel">
-                        {this.props.validUser === true ? 'Yes' : 'No'}</div><br />
-                    <br />
-                    <TextField id="txtPassword" label="Password" type="Password" /><br />
-                    <Button variant="contained" color="primary" onClick={this.props.onLoginClick}>
-                        Login
-                </Button>
-                    <div className="row">
-                        <div className="input-field col s12 center">
-                            <i className="large material-icons circle teal white-text">person</i>
+                        {auth.validUser === true ? 'Yes' : 'No'}
+                        {txtEmail}
+                        <br />
+                        <div className="row">
+                            <div className="input-field col s12 center">
+                                <i className="large material-icons circle teal white-text">person</i>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <Grid container spacing={1} alignItems="flex-end">
-                            <Grid item>
-                                {/* <AccountCircle /> */}
-                            </Grid>
-                            <Grid item>
-                                <TextField id="input-with-icon-grid" label="With a grid" />
-                            </Grid>
-                        </Grid>
-                    </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <i className="material-icons prefix">lock_outline</i>
-                            <input id="password" type="password" />
-                            <label>Password</label>
+                        <div className="row">
+                            <div className="input-field col s12 center">
+                                <Grid container spacing={1} alignItems="flex-end">
+                                    <Grid item>
+                                        <EmailIcon />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextField id="input-with-icon-grid" label="Email" value={txtEmail} onChange={(e) => { setTxtEmail(e.target.value) }} />
+                                    </Grid>
+
+                                </Grid>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <a href="#" id="login" className="btn waves-effect waves-light col s12" onClick={this.props.onLoginClick}>Sign In</a>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <Grid container spacing={1} alignItems="flex-end">
+                                    <Grid item>
+                                        <LockIcon />
+                                    </Grid>
+                                    <Grid item>
+                                        <TextField id="input-with-icon-grid" label="Password" type="password" value={txtPassword} onChange={(e) => { setTxtPassword(e.target.value) }} />
+                                    </Grid>
+                                </Grid>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <a href="#" id="login" className="btn waves-effect waves-light col s12" onClick={() => { dispatch(AuthenticateUser(Authenticate(txtEmail, txtPassword))) }}>Sign In</a>
+                            </div>
+                        </div>
+                    </div><br />
+                </form>
             </div>
 
-        );
-    }
+        </div>
+
+    );
 }
 
-const mapStateToProps = (state: IAppState) => {
-    return {
-        validUser: state.login.validUser
-    };
-};
 
-const mapDispatchToProps = (dipatch: Dispatch<IAuthType>) => {
-    return {
-        onLoginClick: () => dipatch(AuthenticateUser(true))
-    };
-};
-
-export default compose(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )
-)(Login);
+export default Login;

@@ -9,6 +9,8 @@ const makeAction = <T extends ELoginType, P>(type: T) => (action: P) => {
 
 export const AuthenticateUser = makeAction<ELoginType.AUTHENTICATE_USER, boolean>(ELoginType.AUTHENTICATE_USER);
 
+export const LogoutUser = makeAction<ELoginType.LOGOUT_USER, boolean>(ELoginType.LOGOUT_USER);
+
 interface IStringMap<T> {
   [key: string]: T;
 }
@@ -16,7 +18,8 @@ type IAnyFunction = (...args: any[]) => any;
 type IActionUnion<A extends IStringMap<IAnyFunction>> = ReturnType<A[keyof A]>;
 
 const actions = {
-  AuthenticateUser
+  AuthenticateUser,
+  LogoutUser
 };
 
 

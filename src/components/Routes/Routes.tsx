@@ -1,17 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../Login/Login';
+import Exam from '../Exam/Exam';
 
-class Routes extends React.Component {
-  render() {
-    // console.log(this.props);
-    return (
-      <Router>
-        <Route path="/" name="Login" component={Login}>
-        </Route>
-      </Router>
-    );
-  }
+const Routes = () => {
+  // console.log(props);
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" name="Login" component={Login}/>
+        <Route exact path="/Exam" name="Exam" component={Exam}/>
+      </Switch>
+    </Router>
+  );
 }
 
 export default Routes;

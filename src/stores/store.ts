@@ -2,10 +2,10 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
-import loginReducer from '../reducers/LoginReducer';
+import {reducer as authReducer} from '../reducers/AuthReducer';
 
 const reducers = combineReducers({
-    login: loginReducer
+    auth: authReducer
 });
 
 export type IAppState = ReturnType<typeof reducers>;
