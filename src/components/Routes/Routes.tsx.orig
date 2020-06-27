@@ -1,8 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../Login/Login';
-import Exam from '../Exam/Exam';
+<<<<<<< HEAD
 import ListPost from '../Post/ListPost';
+
+
+class Routes extends React.Component {
+  render() {
+    // console.log(this.props);
+    return (
+      <Router>
+            <Route path="/" name="Login" component={Login}></Route>
+            <Route path="/post" name="Post" component={ListPost}></Route>
+      </Router>
+    );
+  }
+=======
+import Exam from '../Exam/Exam';
 
 const Routes = () => {
   // console.log(props);
@@ -11,10 +25,10 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" name="Login" component={Login}/>
         <Route exact path="/Exam" name="Exam" component={Exam}/>
-        <Route path="/post" name="Post" component={ListPost}></Route>
       </Switch>
     </Router>
   );
+>>>>>>> c14509baee911bdb369d04d4290276ba143945bc
 }
 
 export default Routes;

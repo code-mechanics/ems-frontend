@@ -2,16 +2,19 @@ import { ELoginType } from '../enums/Types';
 import { IAuthType } from "../actions/AuthAction";
 
 const initState: IState = {
-    validUser: false
+  validUser: false
 };
 
 export interface IState {
-    validUser: boolean;
+  validUser: boolean;
 }
 
 export const reducer = (state: IState = initState, action: IAuthType): IState => {
   switch (action.type) {
     case ELoginType.AUTHENTICATE_USER:
+      return { ...state, validUser: action.action };
+
+    case ELoginType.LOGOUT_USER:
       return { ...state, validUser: action.action };
 
     default:
