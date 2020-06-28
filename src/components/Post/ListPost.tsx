@@ -43,7 +43,7 @@ class ListPost extends React.Component<Post>  {
                 <td>
                     <button
                         className="btn btn-outline-danger"
-                        onClick={() => onDeleteClick(item.id, this.props.posts)}
+                        onClick={() => this.props.onDeleteClick(item.id, this.props.posts.posts)}
                     >
                         Delete
                         </button>
