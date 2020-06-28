@@ -19,7 +19,7 @@ interface Post {
 class ListPost extends React.Component<Post>  {
 
     componentDidMount() {
-        console.log("this.props in list post::", this.props.post)
+        console.log("this.props in list post::", this.props.posts)
         // const { post, onLoginClick } = this.props;
         //
         // if (post.length === 0) {
@@ -33,14 +33,14 @@ class ListPost extends React.Component<Post>  {
 
 
     render() {
-        const tableBody = this.props.post.map((post) => {
-            <tr key={post.id}>
-                <td>{post.id}</td>
-                <td>{post.userId}</td>
-                <td>{post.title}</td>
-                <td>{post.completed}</td>
+        const tableBody = this.props.posts.posts.map((item) => (
+            <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.userId}</td>
+                <td>{item.title}</td>
+                <td>{item.completed}</td>
             </tr>
-        });
+        ));
 
         return (
             <table className="table">
@@ -63,7 +63,7 @@ class ListPost extends React.Component<Post>  {
 const mapStateToProps = (state: any) => {
     return {
         // validUser: state.login.validUser'=
-        posts: state.posts
+        posts: state.post
     };
 };
 

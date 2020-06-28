@@ -22,21 +22,22 @@ export interface Post {
     completed: boolean
 }
 
-export default function reducer (state= initState, action:any) {
+export default function reducer(state = initState, action: any) {
     let st = state;
     switch (action.type) {
         case ELoginType.GET_ALL_POST:
-        {
-            st = {
-                ...state,
-                posts: action.posts
-            };
-            break;
-        }
+            {
+                console.log(action.posts);
+                st = {
+                    ...state,
+                    posts: action.posts
+                };
+                break;
+            }
         case ELoginType.GET_POST:
             return action.post;
         default:
             return st;
-}
+    }
     return st;
 };
