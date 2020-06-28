@@ -19,6 +19,7 @@ import { ELoginType } from '../enums/Types';
 export function getPost() {
     return function (dispatch:any) {
         axios.get('https://jsonplaceholder.Post.com/todos/1').then(response => {
+            console.log('true');
             console.log(response.data);
             dispatch({
                 type:
@@ -26,6 +27,7 @@ export function getPost() {
                 post: response.data
             });
         }).catch(err => {
+            console.log('false');
             console.log(err);
         });
     };
