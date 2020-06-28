@@ -36,6 +36,15 @@ export default function reducer(state = initState, action: any) {
             }
         case ELoginType.GET_POST:
             return action.post;
+        case ELoginType.DELETE_POST:
+        {
+            console.log(action.posts);
+            st = {
+                ...state,
+                posts: action.posts
+            };
+            break;
+        }
         default:
             return st;
     }

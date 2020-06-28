@@ -3,5 +3,6 @@ export enum ELoginType {
     GETOAUTH_USERS = 'GETOAUTH_USERS',
     GET_ALL_POST = 'GET_ALL_POST',
     GET_POST = 'GET_POST',
+    DELETE_POST = 'DELETE_POST',
     LOGOUT_USER = 'LOGOUT_USER'
 }

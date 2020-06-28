@@ -7,13 +7,14 @@ import React from 'react';
 import { connect } from "react-redux";
 // import { Dispatch } from "react";
 // import { IAppState } from "../../stores/store";
-import { getAllPost, getPost } from "../../actions/PostAction";
+import { getAllPost, getPost, deletePost } from "../../actions/PostAction";
 import { Posts } from "../../reducers/PostReducer";
 
 
 interface Post {
     posts: Posts;
     onLoginClick(): Posts;
+    onDeleteClick(id: number, posts: any): void;
 }
 
 class ListPost extends React.Component<Post>  {
@@ -39,6 +40,14 @@ class ListPost extends React.Component<Post>  {
                 <td>{item.userId}</td>
                 <td>{item.title}</td>
                 <td>{item.completed}</td>
+                <td>
+                    <button
+                        className="btn btn-outline-danger"
+                        onClick={() => onDeleteClick(item.id, this.props.posts)}
+                    >
+                        Delete
+                        </button>
+                </td>
             </tr>
         ));
 
@@ -50,6 +59,7 @@ class ListPost extends React.Component<Post>  {
                     <th>Id</th>
                     <th>Title</th>
                     <th>Completed</th>
+                    <th/>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,7 +79,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch:any) => {
             return { 
-                onLoginClick: () => dispatch(getAllPost())
+                onLoginClick: () => dispatch(getAllPost()),
+                onDeleteClick: (id: number, posts: any) => dispatch(deletePost(id, posts))
             }};
 
 export default
