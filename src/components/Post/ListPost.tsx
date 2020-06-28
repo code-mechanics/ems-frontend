@@ -7,19 +7,19 @@ import React from 'react';
 import { connect } from "react-redux";
 // import { Dispatch } from "react";
 // import { IAppState } from "../../stores/store";
-import { getPost } from "../../actions/PostAction";
-import { Post } from "../../reducers/PostReducer";
+import { getAllPost, getPost } from "../../actions/PostAction";
+import { Posts } from "../../reducers/PostReducer";
 
 
-interface Posts {
-    post: Post;
-    onLoginClick(): Post;
+interface Post {
+    posts: Posts;
+    onLoginClick(): Posts;
 }
 
-class ListPost extends React.Component<Posts>  {
+class ListPost extends React.Component<Post>  {
 
     componentDidMount() {
-        console.log("this.props in list post::", this.props.post.id)
+        console.log("this.props in list post::", this.props.post)
         // const { post, onLoginClick } = this.props;
         //
         // if (post.length === 0) {
@@ -33,11 +33,29 @@ class ListPost extends React.Component<Posts>  {
 
 
     render() {
-        // const classes = useStyles();
+        const tableBody = this.props.post.map((post) => {
+            <tr key={post.id}>
+                <td>{post.id}</td>
+                <td>{post.userId}</td>
+                <td>{post.title}</td>
+                <td>{post.completed}</td>
+            </tr>
+        });
+
         return (
-            <div>
-                {this.props.post.id}
-            </div>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Completed</th>
+                </tr>
+                </thead>
+                <tbody>
+                {tableBody}
+                </tbody>
+            </table>
         );
     }
 }
@@ -45,13 +63,13 @@ class ListPost extends React.Component<Posts>  {
 const mapStateToProps = (state: any) => {
     return {
         // validUser: state.login.validUser'=
-        post: state.post
+        posts: state.posts
     };
 };
 
 const mapDispatchToProps = (dispatch:any) => {
             return { 
-                onLoginClick: () => dispatch(getPost())
+                onLoginClick: () => dispatch(getAllPost())
             }};
 
 export default
