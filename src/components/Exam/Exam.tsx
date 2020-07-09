@@ -2,21 +2,20 @@
  * @file Exam.
  * @author Mahesh
  */
-import React, { useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
 import NavBar from '../NavBar/NavBar';
-import { useDispatch, useSelector } from "react-redux";
-import { LogoutUser } from "../../actions/AuthAction";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import ListPost from '../Post/ListPost';
 
 const Exam = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        console.log('useEffect runs on Exam');
-    }, []);
     return (
         <div>
             <NavBar />
-            <Link to="/" onClick={() => { dispatch(LogoutUser(false)) }}>Logout</Link>
+            <CssBaseline />
+            <Container maxWidth="md">
+                <ListPost />
+            </Container>
         </div>
     );
 }

@@ -32,7 +32,7 @@ const Login = () => {
     const classes = useStyles();
     const [txtEmail, setTxtEmail] = useState<string>('');
     const [txtPassword, setTxtPassword] = useState<string>('');
-    console.log(history);
+    // console.log(history);
 
     useEffect(() => {
         console.log('useEffect runs');
@@ -47,10 +47,7 @@ const Login = () => {
             <NavBar />
             <div id="login-page" className="row">
                 <form className={classes.root} noValidate autoComplete="off">
-                    <div className="col s12 z-depth-6 card-panel">
-                        {auth.validUser === true ? 'Yes' : 'No'}
-                        {txtEmail}
-                        <br />
+                    <div className="col s12 z-depth-6 card-panel">                        
                         <div className="row">
                             <div className="input-field col s12 center">
                                 <i className="large material-icons circle teal white-text">person</i>
